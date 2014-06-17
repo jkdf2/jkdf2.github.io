@@ -17,18 +17,17 @@ L.tileLayer('http://{s}.tiles.mapbox.com/v3/' + mapID + '/{z}/{x}/{y}.png', {
       }).addTo(map);
 
 /* Locate user and put a market in the vicinity of the user */
-map.locate({setView: true, maxZoom: 16});
+//TODO: Test setZoom.
+map.locate({setView: true, maxZoom: 16, setZoom: 8});
 function onLocationFound(e) {
    var radius = e.accuracy / 2;
-
    L.marker(e.latlng).addTo(map)
       .bindPopup("You appear to be within " + radius + " meters from this point").openPopup();
-
    L.circle(e.latlng, radius).addTo(map);
 }
 map.on('locationfound', onLocationFound);
 
-/* pop up with lat/long on mouse pointer click */
+/* pop up with lat/long on mouse pointer double click */
 var popup = L.popup();
 function onMapClick(e) {
    popup
@@ -36,4 +35,4 @@ function onMapClick(e) {
       .setContent("You clicked the map at " + e.latlng.toString())
       .openOn(map);
 }
-map.on('click', onMapClick);
+map.on('dblclick', onMapClick);
