@@ -36,3 +36,17 @@ function onMapClick(e) {
       .openOn(map);
 }
 map.on('dblclick', onMapClick);
+
+/* Write out map size on click.
+   function getMapSize() {
+   var point = map.getSize();
+   document.write(point.toString());
+   }
+   map.on('click', getMapSize); */
+
+/* Destroys the map on a click.
+   function destroyEverything() {
+   map
+   .remove();
+   }
+   map.on('click', destroyEverything); */
