@@ -17,8 +17,7 @@ L.tileLayer('http://{s}.tiles.mapbox.com/v3/' + mapID + '/{z}/{x}/{y}.png', {
       }).addTo(map);
 
 /* Locate user and put a market in the vicinity of the user */
-//TODO: Test setZoom.
-map.locate({setView: true, maxZoom: 16, setZoom: 8});
+map.locate({setView: true, maxZoom: 16});
 function onLocationFound(e) {
    var radius = e.accuracy / 2;
    L.marker(e.latlng).addTo(map)
