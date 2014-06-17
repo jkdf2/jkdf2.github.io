@@ -14,14 +14,12 @@ L.tileLayer('http://{s}.tiles.mapbox.com/v3/' + mapID + '/{z}/{x}/{y}.png', {
       maxZoom: 18
       }).addTo(map);
 
+//pop up with lat/long on mouse pointer click
 var popup = L.popup();
-
-
 function onMapClick(e) {
    popup
       .setLatLng(e.latlng)
       .setContent("You clicked the map at " + e.latlng.toString())
       .openOn(map);
 }
-
 map.on('click', onMapClick);
