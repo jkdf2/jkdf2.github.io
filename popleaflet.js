@@ -4,7 +4,7 @@
  */
 
 /* sets up the map at the lat/long location */
-var map = L.map('map').setView([36.11, -115.17285], 4);
+var map = L.map('map').setView([37, -97], 4);
 
 /* sets up attribution properties on the map */
 var mapID = "taylorkline.iheaicei";
@@ -14,3 +14,6 @@ L.tileLayer('https://{s}.tiles.mapbox.com/v3/' + mapID + '/{z}/{x}/{y}.png', {
       'Imagery © <a href="http://mapbox.com">Mapbox</a>',
       maxZoom: 18
       }).addTo(map);
+
+/* Import state data from GeoJSON file */
+L.geoJson(statesData).addTo(map);
