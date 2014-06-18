@@ -16,7 +16,15 @@ L.tileLayer('https://{s}.tiles.mapbox.com/v3/' + mapID + '/{z}/{x}/{y}.png', {
       maxZoom: 18
       }).addTo(map);
 
-/* Locate user and put a market in the vicinity of the user */
+/* Set up a custom icon.
+var customIcon = L.icon({
+   iconUrl: './lflt/images/leaf-green.png',
+   iconSize: [38, 95],
+   iconAnchor: [22, 94],
+   popupAnchor: [-3, -76]
+}); */
+
+/* Locate user and put a marker in the vicinity of the user */
 map.locate({setView: true, maxZoom: 16});
 function onLocationFound(e) {
    var radius = e.accuracy / 2;
