@@ -15,14 +15,7 @@ L.tileLayer('https://{s}.tiles.mapbox.com/v3/' + mapID + '/{z}/{x}/{y}.png', {
       maxZoom: 18
       }).addTo(map);
 
-function onEachFeature(feature, layer) {
-   layer.on({
-      mouseover: highlightFeature,
-   mouseout: resetHighlight,
-   click: zoomToFeature
-   });
-}
-
+/* Color code the states based on popdensity */
 function getColor(d) {
    return d > 1000 ? '#4A1486' :
       d > 500  ? '#6A51A3' :
@@ -37,8 +30,7 @@ function getColor(d) {
 /* Import state data from GeoJSON file */
 L.geoJson(statesData, {style: style}).addTo(map);
 
-var geojson;
-
+/* Outline the states. */
 function style(feature) {
    return {
       fillColor: getColor(feature.properties.density),
@@ -50,10 +42,12 @@ function style(feature) {
    };
 }
 
+/* Zoom to the state. */
 function zoomToFeature(e) {
    map.fitBounds(e.target.getBounds());
 }
 
+/* Defines what to do when the state is highlighted */
 function highlightFeature(e) {
    var layer = e.target;
    layer.setStyle({
@@ -68,10 +62,22 @@ function highlightFeature(e) {
    }
 }
 
+/* Define the reset of states back to normal color. */
 function resetHighlight(e) {
    geojson.resetStyle(e.target);
 }
 
+/* Listener for mouseovers and mouseouts. */
+function onEachFeature(feature, layer) {
+   layer.on({
+      mouseover: highlightFeature,
+   mouseout: resetHighlight,
+   click: zoomToFeature
+   });
+}
+
+/* Allows the geoJson layer to be accessed. */
+var geojson;
 geojson = L.geoJson(statesData, {
    style: style,
         onEachFeature: onEachFeature
