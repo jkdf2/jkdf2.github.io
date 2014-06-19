@@ -47,6 +47,11 @@ function zoomToFeature(e) {
    map.fitBounds(e.target.getBounds());
 }
 
+/* Unzoom from the states. */
+function unzoomFeature(){
+   map.setView([37, -97], 4);
+}
+
 /* Defines what to do when the state is highlighted */
 function highlightFeature(e) {
    var layer = e.target;
@@ -72,7 +77,8 @@ function onEachFeature(feature, layer) {
    layer.on({
       mouseover: highlightFeature,
    mouseout: resetHighlight,
-   click: zoomToFeature
+   click: zoomToFeature,
+   dblclick: unzoomFeature
    });
 }
 
