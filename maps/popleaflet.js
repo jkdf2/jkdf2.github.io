@@ -94,7 +94,6 @@ geojson = L.geoJson(statesData, {
 
 /* Custome control: state infographic in top corner */
 var info = L.control();
-
 info.onAdd = function (map) {
    this._div = L.DomUtil.create('div', 'info'); //create a div with class 'info'
    this.update();
@@ -108,3 +107,25 @@ info.update = function (props) {
          : 'Hover over a state for information.<br />Click on a state to zoom in<br />double click to zoom out.');
 };
 info.addTo(map);
+
+/* Custome control: Map legend. */
+var legend = L.control({position: 'bottomright'});
+legend.onAdd = function (map) {
+
+   var div = L.DomUtil.create('div', 'info legend'),
+       grades = [0, 10, 20, 50, 100, 200, 500, 1000],
+       labels = [],
+       from, to;
+
+   //loop through density intervals to generate a label with a colored square
+   for (var i = 0; i < grades.length; i++) {
+      from = grades[i];
+      to = grades[i + 1];
+      labels.push(
+            '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+'));
+   }
+   div.innerHTML = labels.join('<br>');
+   return div;
+};
+legend.addTo(map);
