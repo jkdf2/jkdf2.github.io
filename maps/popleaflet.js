@@ -65,11 +65,14 @@ function highlightFeature(e) {
    if (!L.Browser.ie && !L.Browser.opera) {
       layer.bringToFront();
    }
+
+   info.update(layer.feature.properties);
 }
 
 /* Define the reset of states back to normal color. */
 function resetHighlight(e) {
    geojson.resetStyle(e.target);
+   info.update();
 }
 
 /* Listener for mouseovers and mouseouts. */
@@ -88,3 +91,20 @@ geojson = L.geoJson(statesData, {
    style: style,
         onEachFeature: onEachFeature
 }).addTo(map);
+
+/* Custome control: state infographic in top corner */
+var info = L.control();
+
+info.onAdd = function (map) {
+   this._div = L.DomUtil.create('div', 'info'); //create a div with class 'info'
+   this.update();
+   return this._div;
+};
+
+/* Method to update the control based on feature properties */
+info.update = function (props) {
+   this._div.innerHTML = '<h4>US Population Density</h4>' +  (props ?
+         '<b>' + props.name + '</b><br />' + props.density + ' people / mi<sup>2</sup><br /> Click on state to zoom in<br />double click to zoom out.'
+         : 'Hover over a state for information.<br />Click on a state to zoom in<br />double click to zoom out.');
+};
+info.addTo(map);
