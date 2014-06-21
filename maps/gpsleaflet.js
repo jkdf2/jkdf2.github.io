@@ -5,7 +5,6 @@
 /* sets up the map at the lat/long location */
 var map = L.map('map').setView([36.11, -115.17285], 12);
 
-//TODO: Set location based on IP address?
 
 /* sets up attribution properties on the map */
 var mapID = "taylorkline.iheaicei";
@@ -27,10 +26,19 @@ var customIcon = L.icon({
 /* Locate user and put a marker in the vicinity of the user */
 map.locate({setView: true, maxZoom: 16});
 function onLocationFound(e) {
+  console.log("Location by GPS.");
    var radius = e.accuracy / 2;
    L.marker(e.latlng).addTo(map)
       .bindPopup("You appear to be within " + radius + " meters from this point").openPopup();
    L.circle(e.latlng, radius).addTo(map);
+}
+function onLocationError() {
+//TODO: Set location based on IP address
+  console.log("Falling back on IP-based location.");
+  var pos = L.GeoIP.getPosition();
+  L.GeoIP.centerMapOnPosition(map);
+  //TODO: Calculate radius and put marker?
+  //TODO: What happens if we can't get this either?
 }
 map.on('locationfound', onLocationFound);
 
