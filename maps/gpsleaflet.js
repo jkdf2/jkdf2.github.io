@@ -32,15 +32,20 @@ function onLocationFound(e) {
       .bindPopup("You appear to be within " + radius + " meters from this point").openPopup();
    L.circle(e.latlng, radius).addTo(map);
 }
+
+/* Set location based on GeoIP if unable to locate with GPS. */
 function onLocationError() {
-//TODO: Set location based on IP address
   console.log("Falling back on IP-based location.");
-  var pos = L.GeoIP.getPosition();
-  L.GeoIP.centerMapOnPosition(map);
+  map.setView([50.5, 30.5]);
+  L.GeoIP.centerMapOnPosition(map); //note, centerMapOnPosition function locates automatically
+  //before centering on location.
+
   //TODO: Calculate radius and put marker?
-  //TODO: What happens if we can't get this either?
 }
 map.on('locationfound', onLocationFound);
+map.on('locationerror', onLocationError); //TODO: This only fires in Chrome, not FF
+//see: http://forrst.com/posts/Geolocation_browser_error_handling_for_temporar-OQx
+//also see: https://github.com/Leaflet/Leaflet/issues/1070
 
 /* pop up with lat/long on mouse pointer double click */
 var popup = L.popup();

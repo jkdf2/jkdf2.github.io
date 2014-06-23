@@ -25,6 +25,7 @@ L.GeoIP = L.extend({
                 var geoip_response = JSON.parse(xhr.responseText);
                 result.lat = geoip_response.latitude;
                 result.lng = geoip_response.longitude;
+                console.log("Leaflet.GeoIP.getPosition found lat/long: " + result.lat + " " + result.lng);
             } else {
                 console.log("Leaflet.GeoIP.getPosition failed because its XMLHttpRequest got this response: " + xhr.status);
             }
