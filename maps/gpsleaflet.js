@@ -39,8 +39,9 @@ function onLocationError() {
   map.setView([50.5, 30.5]);
   L.GeoIP.centerMapOnPosition(map); //note, centerMapOnPosition function locates automatically
   //before centering on location.
-
-  //TODO: Calculate radius and put marker?
+  L.marker(map.getCenter()).addTo(map)
+     .bindPopup("Based on your IP Address, you appear to be in this general area.").openPopup();
+  L.circle(map.getCenter(), 10000).addTo(map);
 }
 map.on('locationfound', onLocationFound);
 map.on('locationerror', onLocationError); //TODO: This only fires in Chrome, not FF
