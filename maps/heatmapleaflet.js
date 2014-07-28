@@ -17,14 +17,7 @@ L.tileLayer('https://{s}.tiles.mapbox.com/v3/' + mapID + '/{z}/{x}/{y}.png', {
 
 var heatmapLayer = new L.DivHeatmapLayer();
 
-var data = [
-{
-   lat: 36.11,
-   lon: -115.17285,
-   value: 1
-}
-];
-
-heatmapLayer.setData(data);
+//Load heatmap data from a .js file
+heatmapLayer.setData(heatmapData);
 
 heatmapLayer.addTo(map);
