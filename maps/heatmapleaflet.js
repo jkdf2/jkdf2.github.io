@@ -4,7 +4,7 @@
  */
 
 /* sets up the map at the lat/long location */
-var map = L.map('map').setView([36.11, -115.17285], 12);
+var map = L.map('map').setView([38, -99], 4);
 
 /* sets up attribution properties on the map */
 var mapID = "taylorkline.iheaicei";
@@ -15,7 +15,10 @@ L.tileLayer('https://{s}.tiles.mapbox.com/v3/' + mapID + '/{z}/{x}/{y}.png', {
       maxZoom: 18
       }).addTo(map);
 
-var heatmapLayer = new L.DivHeatmapLayer();
+var heatmapLayer = new L.DivHeatmapLayer(
+      {
+         radius: 20
+      });
 
 //Load heatmap data from a .js file
 heatmapLayer.setData(heatmapData);
